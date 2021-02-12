@@ -1,3 +1,9 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: content-box;
+}
+
 #root {
     display: flex;
     flex-direction: row;
@@ -15,4 +21,5 @@ textarea{
 
 #editor *{
     margin: 5px;
+    padding: 5px;
 }
