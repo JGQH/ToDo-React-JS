@@ -15,6 +15,7 @@
     padding: 5%;
 }
 
+/* Editor */
 textarea{
     width: 100%;
 }
@@ -22,4 +23,35 @@ textarea{
 #editor *{
     margin: 5px;
     padding: 5px;
+}
+
+/* Tasks */
+.task {
+    display:flex;
+    flex-direction: row;
+
+    padding: 5px;
+    border: 1px solid #666666;
+    margin-bottom: 10px;
+}
+
+.name-task{
+    flex-grow: 1;
+    flex-shrink: 0;
+}
+
+.task div {
+    flex-grow: 0;
+    flex-shrink: 1;
+}
+
+.check-task {
+    margin-right: 5px;
+}
+
+.delete-task {
+    color: #ff3333;
+    border-color: #ff3333;
+    background-color: #ff8888;
+    border-radius: 25%;
 }

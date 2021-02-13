@@ -14,11 +14,17 @@ function App() {
     setTaskName("")
   }
 
+  function deleteTask(index){
+    let tasks_ = [...tasks];
+    tasks_.splice(index, 1);
+    setTasks(tasks_);
+  }
+
   return (
     <>
       <div id="tasks">
         {tasks.map((task, index) => {
-          return <Task key={index} name={task.name} index={index} />
+          return <Task key={index} name={task.name} index={index} onClick={deleteTask}/>
         })}
       </div>
       <div id="editor">
