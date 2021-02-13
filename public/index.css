@@ -26,7 +26,7 @@ textarea{
 }
 
 /* Tasks */
-.task {
+.active-task, .inactive-task {
     display:flex;
     flex-direction: row;
 
@@ -35,12 +35,17 @@ textarea{
     margin-bottom: 10px;
 }
 
+.inactive-task {
+    background-color: #333333;
+    color: #aaaaaa;
+}
+
 .name-task{
     flex-grow: 1;
     flex-shrink: 0;
 }
 
-.task div {
+.buttons-task {
     flex-grow: 0;
     flex-shrink: 1;
 }

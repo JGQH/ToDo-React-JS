@@ -9,7 +9,9 @@ function App() {
   function createTask(){
     const newTask = {
       name: taskName,
-      prevs: taskPrevs
+      prevs: taskPrevs,
+      available: !(taskPrevs.length > 0),
+      checked: false,
     };
 
     setTasks([...tasks, newTask])
@@ -28,11 +30,31 @@ function App() {
     setTasks(tasks_);
   }
 
+  function setAvailable(){
+    let tasks_ = [...tasks];
+    tasks_.forEach(task_ => {
+      const completedPrevs = task_.prevs.filter(prev => {
+        return tasks_[prev - 1].checked;
+      }).length;
+
+      task_.available = (completedPrevs == task_.prevs.length);
+    })
+    setTasks(tasks_);
+  }
+
+  function checkTask(index, val){
+    let tasks_ = [...tasks];
+    let task_ = tasks_[index];
+    task_.checked = val;
+    setTasks(tasks_);
+    setAvailable();
+  }
+
   return (
     <>
       <div id="tasks">
         {tasks.map((task, index) => {
-          return <Task key={index} name={task.name} index={index} prevs={task.prevs} onClick={deleteTask}/>
+          return <Task key={index} name={task.name} index={index} prevs={task.prevs} available={task.available} onClick={deleteTask} onChange={checkTask}/>
         })}
       </div>
       <div id="editor">
