@@ -29,6 +29,21 @@ function App() {
   function deleteTask(index){
     let tasks_ = [...tasks];
     tasks_.splice(index, 1);
+
+    for(let i = index; i < tasks_.length; i++){
+      let task_ = tasks_[i];
+      //Remove prev task if it is the deleted task
+      let index_ = task_.prevs.indexOf(index + 1);
+      if(index_ >= 0){
+        task_.prevs.splice(index_, 1);
+      }
+
+      //Substract 1 from all other prevs if index was modified
+      task_.prevs = task_.prevs.map(prev => {
+        return prev - ((prev - 1) < index ? 0 : 1)
+      })
+    }
+
     setTasks(tasks_);
   }
 
