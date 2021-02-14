@@ -20,8 +20,10 @@ function App() {
   }
 
   function createPrev(){
-    let newPrev = parseInt(prompt("Enter the number of the task", "1"));
-    setTaskPrevs([...taskPrevs, newPrev])
+    let newPrev = parseInt(prompt("Enter the number of the task", tasks.length));
+    if(newPrev <= tasks.length) {
+      setTaskPrevs([...taskPrevs, newPrev])
+    }
   }
 
   function deleteTask(index){
@@ -30,24 +32,22 @@ function App() {
     setTasks(tasks_);
   }
 
-  function setAvailable(){
+  function checkTask(index, val){
     let tasks_ = [...tasks];
-    tasks_.forEach(task_ => {
-      const completedPrevs = task_.prevs.filter(prev => {
+    //Update current checked task
+    let task_ = tasks_[index];
+    task_.checked = val;
+
+    //Update availability of all tasks
+    tasks_.forEach(task__ => {
+      const completedPrevs = task__.prevs.filter(prev => {
         return tasks_[prev - 1].checked;
       }).length;
 
-      task_.available = (completedPrevs == task_.prevs.length);
+      task__.available = (completedPrevs == task__.prevs.length);
     })
-    setTasks(tasks_);
-  }
 
-  function checkTask(index, val){
-    let tasks_ = [...tasks];
-    let task_ = tasks_[index];
-    task_.checked = val;
     setTasks(tasks_);
-    setAvailable();
   }
 
   return (
