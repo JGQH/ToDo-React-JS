@@ -1,10 +1,13 @@
-import { useState } from 'react'
+import { getTasks, saveTasks } from './Utilities'
+import { useState, useEffect } from 'react'
 import Task from './Task'
 
 function App() {
   const [taskName, setTaskName] = useState("");
-  const [taskPrevs, setTaskPrevs] = useState(new Array());
-  const [tasks, setTasks] = useState(new Array());
+  const [taskPrevs, setTaskPrevs] = useState([]);
+  const [tasks, setTasks] = useState(getTasks());
+
+  useEffect(() => {saveTasks(tasks)}, [tasks]);
 
   function createTask(){
     const newTask = {
@@ -14,7 +17,8 @@ function App() {
       checked: false,
     };
 
-    setTasks([...tasks, newTask])
+    setTasks([...tasks, newTask]);
+
     setTaskPrevs(new Array());
     setTaskName("")
   }
