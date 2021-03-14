@@ -73,7 +73,7 @@ function App() {
     <>
       <div id="tasks">
         {tasks.map((task, index) => {
-          return <Task key={index} name={task.name} index={index} prevs={task.prevs} available={task.available} onClick={deleteTask} onChange={checkTask}/>
+          return <Task key={index} name={task.name} index={index} prevs={task.prevs} available={task.available} deleteTask={deleteTask} onChange={checkTask}/>
         })}
       </div>
       <div id="editor">
