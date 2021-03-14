@@ -19,4 +19,5 @@ This project is a practice for introduction to diplay multiple JSX components us
 ![To-Do](./readme/to-do.gif)
 
 ## To-Do
-- Visualize required tasks (Similar to Task)
+- Refactor of task-handling logic
+- Auto-check Tasks (When loading saved tasks that were checked)

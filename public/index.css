@@ -37,6 +37,21 @@ textarea{
     grid-area: prevs;
 }
 
+.prev-task {
+    border: 1px solid #2a9df4;
+    color: #2a9df4;
+    background-color: #d0efff;
+    border-radius: 10px;
+}
+
+.button-prev {
+    border: none;
+    background-color: #2a9df4;
+    padding: 3px;
+    color: #1167b1;
+    border-radius: 3px;
+}
+
 /* Tasks */
 #tasks {
     grid-area: tasks;
@@ -47,8 +62,11 @@ textarea{
     flex-direction: row;
 
     padding: 5px;
-    border: 1px solid #666666;
     margin-bottom: 10px;
+}
+
+.active-task {
+    border: 1px solid #666666;
 }
 
 .inactive-task {

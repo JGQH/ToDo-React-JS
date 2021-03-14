@@ -31,6 +31,12 @@ function App() {
     }
   }
 
+  function deletePrev(index) {
+    const prevs = [...taskPrevs];
+    prevs.splice(index, 1);
+    setTaskPrevs(prevs);
+  }
+
   function deleteTask(index){
     let tasks_ = [...tasks];
     tasks_.splice(index, 1);
@@ -85,7 +91,7 @@ function App() {
       </div>
       <div id="prevs">
         {taskPrevs.map((prev, index) => (
-          <Prev key={index} task={prev} />
+          <Prev key={index} task={prev} index={index} deletePrev={deletePrev}/>
         ))}
       </div>
     </>
