@@ -5,17 +5,24 @@
 }
 
 #root {
-    display: flex;
-    flex-direction: row;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: 
+    "tasks editor"
+    "tasks prevs"
+    "tasks null";
     width: 100%;
 }
 
-#editor, #tasks{
-    width:50%;
+#editor, #tasks, #prevs{
     padding: 5%;
 }
 
 /* Editor */
+#editor {
+    grid-area: editor;
+}
+
 textarea{
     width: 100%;
 }
@@ -25,8 +32,17 @@ textarea{
     padding: 5px;
 }
 
+/* Prevs */
+#prevs {
+    grid-area: prevs;
+}
+
 /* Tasks */
-.active-task, .inactive-task {
+#tasks {
+    grid-area: tasks;
+}
+
+.active-task, .inactive-task, .prev-task {
     display:flex;
     flex-direction: row;
 
@@ -40,12 +56,12 @@ textarea{
     color: #aaaaaa;
 }
 
-.name-task{
+.name-task, .name-prev{
     flex-grow: 1;
     flex-shrink: 0;
 }
 
-.buttons-task {
+.buttons-task, .button-prev {
     flex-grow: 0;
     flex-shrink: 1;
 }

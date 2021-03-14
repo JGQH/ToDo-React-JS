@@ -1,6 +1,7 @@
 import { getTasks, saveTasks } from './Utilities'
 import { useState, useEffect } from 'react'
 import Task from './Task'
+import Prev from './Prev'
 
 function App() {
   const [taskName, setTaskName] = useState("");
@@ -25,7 +26,7 @@ function App() {
 
   function createPrev(){
     let newPrev = parseInt(prompt("Enter the number of the task", tasks.length));
-    if(newPrev <= tasks.length) {
+    if((newPrev <= tasks.length) && !taskPrevs.includes(newPrev)) {
       setTaskPrevs([...taskPrevs, newPrev])
     }
   }
@@ -34,8 +35,8 @@ function App() {
     let tasks_ = [...tasks];
     tasks_.splice(index, 1);
 
-    for(let i = index; i < tasks_.length; i++){
-      let task_ = tasks_[i];
+    let mtask_ = tasks_.splice(index, tasks_.length - index);
+    mtask_.forEach(task_ => {
       //Remove prev task if it is the deleted task
       let index_ = task_.prevs.indexOf(index + 1);
       if(index_ >= 0){
@@ -46,16 +47,15 @@ function App() {
       task_.prevs = task_.prevs.map(prev => {
         return prev - ((prev - 1) < index ? 0 : 1)
       })
-    }
+    });
 
-    setTasks(tasks_);
+    setTasks([...tasks_, ...mtask_]);
   }
 
   function checkTask(index, val){
     let tasks_ = [...tasks];
     //Update current checked task
-    let task_ = tasks_[index];
-    task_.checked = val;
+    tasks_[index].checked = val;
 
     //Update availability of all tasks
     tasks_.forEach(task__ => {
@@ -72,9 +72,9 @@ function App() {
   return (
     <>
       <div id="tasks">
-        {tasks.map((task, index) => {
-          return <Task key={index} name={task.name} index={index} prevs={task.prevs} available={task.available} deleteTask={deleteTask} onChange={checkTask}/>
-        })}
+        {tasks.map((task, index) => (
+          <Task key={index} name={task.name} index={index} prevs={task.prevs} available={task.available} deleteTask={deleteTask} onChange={checkTask}/>
+        ))}
       </div>
       <div id="editor">
         <textarea placeholder="Insert name of a task here..." onChange={evt => setTaskName(evt.target.value)} value={taskName}></textarea>
@@ -82,6 +82,11 @@ function App() {
           <button onClick={createTask} disabled={taskName.trim().length == 0}>Create Task</button>
           <button onClick={createPrev}>Add Previous Tasks</button>
         </div>
+      </div>
+      <div id="prevs">
+        {taskPrevs.map((prev, index) => (
+          <Prev key={index} task={prev} />
+        ))}
       </div>
     </>
   );
